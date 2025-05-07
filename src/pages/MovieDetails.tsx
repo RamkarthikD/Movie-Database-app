@@ -20,16 +20,9 @@ export const MovieDetails = () => {
   const url = `https://api.themoviedb.org/3/movie/${id}?api_key=${key}`;
 
   useEffect(() => {
-    async function fetchMovie() {
-      try {
-        const response = await fetch(url);
-        const jsonData = await response.json();
-        setMovie(jsonData);
-      } catch (error) {
-        console.error("Failed to fetch movie:", error);
-      }
-    }
-    fetchMovie();
+    fetch(url)
+      .then((res) => res.json())
+      .then((data) => setMovie(data))
   }, [url]);
 
   useEffect(() => {
@@ -52,8 +45,7 @@ export const MovieDetails = () => {
       <p><strong>Release Date:</strong> {movie.release_date}</p>
       <p><strong>Rating:</strong> {movie.vote_average}</p>
       <p><strong>Genres:</strong> {movie.genres.map(g => g.name).join(", ")}</p>
-      <a  target="_blank" href={`https://www.imdb.com/title/${movie.imdb_id}/`}>View in IMDB</a>
+      <a target="_blank" href={`https://www.imdb.com/title/${movie.imdb_id}/`}>View in IMDB</a>
     </div>
   );
 };
-

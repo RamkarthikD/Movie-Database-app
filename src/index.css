@@ -1,0 +1,24 @@
+.container {
+    text-align: center;
+    padding: 20px;
+  }
+  .meals {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+  }
+  .mealImg {
+    border: 1px solid #ccc;
+    padding: 10px;
+    width: 200px;
+  }
+  .mealImg img {
+    width: 100%;
+    border-radius: 8px;
+  }
+  .recipeCard {
+    padding: 20px;
+    text-align: center;
+  }
+  

@@ -1,21 +1,16 @@
-import { useNavigate, Link } from "react-router-dom";
-import { FormEvent } from "react";
+import { useNavigate, useLocation, Link } from "react-router-dom";
+
 
 export const Header = () => {
   const navigate = useNavigate();
+  const location = useLocation();
 
-  const handleSearch = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  if (location.pathname === "/login" || location.pathname === "/signup") return null;
 
-    const form = e.currentTarget;
-    const input = form.elements.namedItem("search") as HTMLInputElement;
-    const queryTerm = input.value.trim();
 
-    form.reset();
-
-    if (queryTerm) {
-      navigate(`/search?q=${queryTerm}`);
-    }
+  const handleLogout = () => {
+    localStorage.removeItem("auth");
+    navigate("/login");
   };
 
   return (
@@ -23,15 +18,21 @@ export const Header = () => {
       <div className="container-fluid">
         <Link to="/" className="navbar-brand">MovieHunt</Link>
         <div className="collapse navbar-collapse">
-          <ul className="navbar-nav me-auto ">
+          <ul className="navbar-nav me-auto">
             <li className="nav-item"><Link to="/" className="nav-link">Home</Link></li>
             <li className="nav-item"><Link to="/movies/top" className="nav-link">Top Rated</Link></li>
             <li className="nav-item"><Link to="/movies/popular" className="nav-link">Popular</Link></li>
             <li className="nav-item"><Link to="/movies/upcoming" className="nav-link">Upcoming</Link></li>
+            <li className="nav-item"><Link to="/food" className="nav-link">Food</Link></li>
           </ul>
-          <form onSubmit={handleSearch}>
-            <input name="search" type="search" className="form-control" placeholder="Search" />
-          </form>
+            <button
+              type="button"
+              className="btn btn-danger"
+              onClick={handleLogout}
+            >
+              Logout
+            </button>
+         
         </div>
       </div>
     </nav>
